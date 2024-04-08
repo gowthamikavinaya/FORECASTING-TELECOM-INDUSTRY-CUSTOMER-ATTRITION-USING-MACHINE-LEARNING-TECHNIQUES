@@ -1,0 +1,2 @@
+# FORECASTING-TELECOM-INDUSTRY-CUSTOMER-ATTRITION-USING-MACHINE-LEARNING-TECHNIQUES
+The customers are always considered as the kings of Business. Telecom firms consider their consumers as a Lifetime Value which helps them in calculating the profits for a certain period. Customer Lifetime value is a powerful and straightforward indicator which combines the profitability and attrition risk level of each customer. 
