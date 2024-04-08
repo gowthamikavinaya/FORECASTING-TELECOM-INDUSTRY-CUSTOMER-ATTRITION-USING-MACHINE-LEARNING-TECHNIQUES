@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Churn Prediction</title>
+    <style>
+        .navbar-light .navbar-brand {
+            color: rgba(0, 0, 0, .9);
+        }
+
+        .navbar-light .navbar-brand {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+        }
+
+        .formBox {
+            margin-top: 50px;
+            padding: 50px;
+        }
+
+        h1 {
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            margin-bottom: 50px !important;
+            text-transform: uppercase;
+            font-size: 48px;
+        }
+
+        h2 {
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            margin-bottom: 25px !important;
+            text-transform: uppercase;
+            font-size: 25px;
+        }
+
+        .inputBox {
+            position: relative;
+            box-sizing: border-box;
+            margin-bottom: 40px;
+        }
+
+        .button {
+            width: 100%;
+            background: #00bcd4;
+            color: #fff;
+            border-radius: 0;
+            border: none;
+            outline: none;
+            height: 50px;
+            font-size: 24px;
+        }
+
+        .input {
+            position: relative;
+            width: 100%;
+            height: 50px;
+            background: transparent;
+            border: none;
+            outline: none;
+            font-size: 24px;
+            border-bottom: 2px solid rgba(0, 0, 0, .5);
+        }
+
+        .inputText {
+            position: absolute;
+            line-height: 50px;
+            font-size: 24px;
+            transition: .5s;
+            opacity: 0.5;
+        }
+
+        .focus .inputText {
+            transform: translateY(-30px);
+            font-size: 18px;
+            opacity: 1;
+            color: #00bcd4;
+        }
+
+        .btn_train {
+            width: 100%;
+            background: red;
+            color: #fff;
+            border-radius: 0;
+            border: none;
+            outline: none;
+            height: 50px;
+            font-size: 24px;
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+  </head>
+  <body>
+    <nav class="navbar navbar-light bg-light static-top">
+        <div class="container-fluid">
+            <!-- noti -->
+        </div>
+     </nav>
+    <section>
+        <div class="container-fluid">
+            <div class="container">
+                <form action="/predict" method="post">
+                    <h1>     
+                    <legend>Churn Prediction</legend>
+                    </h1>
+                    <div class="mb-3">
+                        <label class="form-label">City</label>
+                        <select class="form-control" name="City" placeholder="Enter City" required>
+                            <option class="placeholder" selected disabled value="">Select City</option>
+                            {% for value in city %}
+                                <option value="{{ value }}">
+                                    {{ value }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>   
+                    <div class="mb-3">
+                        <label class="form-label"> Senior Citizen </label>
+                        <select class="form-control" name="Senior Citizen" placeholder="Are you Senior Citizen?"
+                            required>
+                            <option class="placeholder" selected disabled value="">Senior Citizen</option>
+                            <option value='Yes'>
+                                Yes
+                            </option>
+                            <option value='No'>
+                                No
+                            </option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"> Partner </label>
+                        <select class="form-control" name="Partner" placeholder="Are you Partner?"
+                            required>
+                            <option class="placeholder" selected disabled value="">Partner</option>
+                            <option value='Yes'>
+                                Yes
+                            </option>
+                            <option value='No'>
+                                No
+                            </option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"> Dependents </label>
+                        <select class="form-control" name="Dependents" placeholder="Are you Dependents?"
+                            required>
+                            <option class="placeholder" selected disabled value="">Dependents</option>
+                            <option value='Yes'>
+                                Yes
+                            </option>
+                            <option value='No'>
+                                No
+                            </option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"> Multiple Lines </label>
+                        <select class="form-control" name="Multiple Lines" placeholder="Do you have Multiple Lines?"
+                            required>
+                            <option class="placeholder" selected disabled value="">Multiple Lines</option>
+                            <option value='Yes'>
+                                Yes
+                            </option>
+                            <option value='No'>
+                                No
+                            </option>
+                            <option value='No phone service'>
+                                No phone service
+                            </option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"> Internet Service </label>
+                        <select class="form-control" name="Internet Service" placeholder="Which Internet Service?"
+                            required>
+                            <option class="placeholder" selected disabled value="">Internet Service</option>
+                            <option value='DSL'>
+                                DSL
+                            </option>
+                            <option value='Fiber optic'>
+                                Fiber optic
+                            </option>
+                            <option value="No">
+                                No
+                            </option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Online Security </label>
+                        <select class="form-control" name="Online Security" placeholder="Do you have Online Security?"
+                            required>
+                            <option class="placeholder" selected disabled value="">Online Security</option>
+                            <option value='Yes'>
+                                Yes
+                            </option>
+                            <option value='No'>
+                                No
+                            </option>
+                            <option value='No internet service'>
+                                No internet service
+                            </option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Online Backup </label>
+                        <select class="form-control" name="Online Backup" placeholder="Do you have Online Backup?"
+                            required>
+                            <option class="placeholder" selected disabled value="">Online Backup</option>
+                            <option value='Yes'>
+                                Yes
+                            </option>
+                            <option value='No'>
+                                No
+                            </option>
+                            <option value='No internet service'>
+                                No internet service
+                            </option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Device Protection </label>
+                        <select class="form-control" name="Device Protection" placeholder="Do you have Device Protection?"
+                            required>
+                            <option class="placeholder" selected disabled value="">Device Protection</option>
+                            <option value='Yes'>
+                                Yes
+                            </option>
+                            <option value='No'>
+                                No
+                            </option>
+                            <option value='No internet service'>
+                                No internet service
+                            </option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Tech Support </label>
+                        <select class="form-control" name="Tech Support" placeholder="Do you have Tech Support?"
+                            required>
+                            <option class="placeholder" selected disabled value="">Tech Support</option>
+                            <option value='Yes'>
+                                Yes
+                            </option>
+                            <option value='No'>
+                                No
+                            </option>
+                            <option value='No internet service'>
+                                No internet service
+                            </option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Streaming TV </label>
+                        <select class="form-control" name="Streaming TV" placeholder="Do you have Streaming TV?"
+                            required>
+                            <option class="placeholder" selected disabled value="">Streaming TV</option>
+                            <option value='Yes'>
+                                Yes
+                            </option>
+                            <option value='No'>
+                                No
+                            </option>
+                            <option value='No internet service'>
+                                No internet service
+                            </option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Streaming Movies </label>
+                        <select class="form-control" name="Streaming Movies" placeholder="Do you have Streaming Movies?"
+                            required>
+                            <option class="placeholder" selected disabled value="">Streaming Movies</option>
+                            <option value='Yes'>
+                                Yes
+                            </option>
+                            <option value='No'>
+                                No
+                            </option>
+                            <option value='No internet service'>
+                                No internet service
+                            </option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Contract </label>
+                        <select class="form-control" name="Contract" placeholder="Do you have Contract?"
+                            required>
+                            <option class="placeholder" selected disabled value="">Contract</option>
+                            <option value='Month-to-month'>
+                                Month-to-month
+                            </option>
+                            <option value='Two year'>
+                                Two year
+                            </option>
+                            <option value='One year'>
+                                One year
+                            </option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Paperless Billing </label>
+                        <select class="form-control" name="Paperless Billing" placeholder="Do you have Paperless Billing?"
+                            required>
+                            <option class="placeholder" selected disabled value="">Paperless Billing</option>
+                            <option value='Yes'>
+                                Yes
+                            </option>
+                            <option value='No'>
+                                No
+                            </option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Payment Method </label>
+                        <select class="form-control" name="Payment Method" placeholder="Do you have Payment Method?"
+                            required>
+                            <option class="placeholder" selected disabled value="">Payment Method</option>
+                            <option value='Mailed check'>
+                                Mailed check
+                            </option>
+                            <option value='Electronic check'>
+                                Electronic check
+                            </option>
+                            <option value='Bank transfer (automatic)'>
+                                Bank transfer (automatic)
+                            </option>
+                            <option value="Credit card (automatic)">
+                                Credit card (automatic)
+                            </option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Tenure Months [0-75]</label>
+                        <input class="form-control" type="number" name="Tenure Months"
+                            placeholder="Enter Tenure Months" min='0' max='75'/>
+                    </div>            
+                    <div class="mb-3">
+                        <label class="form-label">Total Charges [12-9000]</label>
+                        <input class="form-control" type="number" name="Total Charges"
+                            placeholder="Enter Total Charges" min='12' max='9000'/>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Churn Score [0-100]</label>
+                        <input class="form-control" type="number" name="Churn Score"
+                            placeholder="Enter Churn Score" min='0' max='100'/>
+                    </div>
+                    <div class="mb-3">
+                        <input class="btn btn-primary" type="submit" value="Predict" required />
+                    </div>
+                </form>
+            </div>
+            <div class="text-center text-black">
+                <h3>Prediction : {{context}} </h3>
+                <h4>Feedback : {{feedback}}</h4>
+                <img id="idOfImageToReload" alt="Shap" height="300" onload="javascript:(function(){setTimeout(function(){document.getElementById('idOfImageToReload').src=document.getElementById('idOfImageToReload').src.split('?')[0]+'?time='+new Date().getTime();},5000);}())" src="/static/result.png" width="472" />            </div>            </div>
+        </div>
+    </section>
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+    <script type="text/javascript">
+        $(".input").focus(function(){
+            $(this).parent().addClass("focus");
+        }).blur(function(){
+            if($(this).val() === ''){
+                $(this).parent().removeClass("focus");
+            }
+        })
+    </script>
+  </body>
+</html>

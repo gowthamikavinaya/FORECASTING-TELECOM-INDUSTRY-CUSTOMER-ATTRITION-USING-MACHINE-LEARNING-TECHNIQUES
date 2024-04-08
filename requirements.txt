@@ -1,0 +1,6 @@
+fastapi
+xgboost
+uvicorn
+python-multipart
+catboost
+scikit-learn
